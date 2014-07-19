@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: hadoopio
+Version: 0.2
+Summary: Python Hadoop I/O Utilities
+Home-page: http://hadoopio.apache.org
+Author: Matteo Bertozzi
+Author-email: theo.bertozzi@gmail.com
+License: Apache Software License 2.0 (ASF)
+Description: UNKNOWN
+Platform: UNKNOWN
