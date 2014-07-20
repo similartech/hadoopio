@@ -20,6 +20,10 @@ from hadoopio.io.Writable import AbstractValueWritable
 from hadoopio.io.WritableUtils import readVInt, readVLong, writeVInt, writeVLong
 
 class IntWritable(AbstractValueWritable):
+    
+    hadoop_module_name = 'org.apache.hadoop.io'
+    hadoop_class_name = 'IntWritable'
+    
     def write(self, data_output):
         data_output.writeInt(self._value)
 
@@ -27,6 +31,10 @@ class IntWritable(AbstractValueWritable):
         self._value = data_input.readInt()
 
 class LongWritable(AbstractValueWritable):
+    
+    hadoop_module_name = 'org.apache.hadoop.io'
+    hadoop_class_name = 'LongWritable'
+    
     def write(self, data_output):
         data_output.writeLong(self._value)
 
@@ -34,6 +42,10 @@ class LongWritable(AbstractValueWritable):
         self._value = data_input.readLong()
 
 class VIntWritable(AbstractValueWritable):
+    
+    hadoop_module_name = 'org.apache.hadoop.io'
+    hadoop_class_name = 'VIntWritable'
+    
     def write(self, data_output):
         writeVInt(data_output, self._value)
 
@@ -41,6 +53,10 @@ class VIntWritable(AbstractValueWritable):
         self._value = readVInt(data_input)
 
 class VLongWritable(AbstractValueWritable):
+    
+    hadoop_module_name = 'org.apache.hadoop.io'
+    hadoop_class_name = 'VLongWritable'
+    
     def write(self, data_output):
         writeVLong(data_output, self._value)
 

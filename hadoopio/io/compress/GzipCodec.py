@@ -22,6 +22,10 @@ from hadoopio.io.InputStream import DataInputBuffer
 from io import StringIO
 
 class GzipCodec:
+    
+    hadoop_module_name = 'org.apache.hadoop.io.compress'
+    hadoop_class_name = 'GzipCodec'
+    
     def compress(self, data):
         ioObj = StringIO.StringIO()
         f = gzip.GzipFile(fileobj = ioObj, mode='wb')

@@ -20,6 +20,10 @@ from hadoopio.io.Writable import WritableComparable
 from hadoopio.io.WritableUtils import readVInt, writeVInt
 
 class Text(WritableComparable):
+    
+    hadoop_module_name = 'org.apache.hadoop.io'
+    hadoop_class_name = 'Text'
+    
     def __init__(self):
         self._bytes = ''
         self._length = 0

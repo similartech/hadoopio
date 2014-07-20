@@ -19,6 +19,10 @@
 from hadoopio.io.Writable import WritableComparable
 
 class NullWritable(WritableComparable):
+    
+    hadoop_module_name = 'org.apache.hadoop.io'
+    hadoop_class_name = 'NullWritable'
+    
     def __new__(cls, *p, **k):
         if not '_shared_instance' in cls.__dict__:
             cls._shared_instance = WritableComparable.__new__(cls)

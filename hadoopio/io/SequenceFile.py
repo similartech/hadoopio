@@ -23,7 +23,7 @@ import os
 
 from hadoopio.util.ReflectionUtils import hadoopClassFromName, hadoopClassName
 
-from hadoopio.io.compress import CodecPool
+from hadoopio.io.compress.CodecPool import CodecPool
 
 from hadoopio.io.WritableUtils import readVInt, writeVInt
 from hadoopio.io.Writable import Writable
@@ -83,9 +83,11 @@ class Metadata(Writable):
 
     def write(self, data_output):
         data_output.writeInt(len(self._meta))
-        for key, value in self._meta.iteritems():
-            Text.writeString(data_output, key)
-            Text.writeString(data_output, value)
+        
+        if (len(self._meta) > 0):
+            for key, value in self._meta.iteritems():
+                Text.writeString(data_output, key)
+                Text.writeString(data_output, value)
 
     def readFields(self, data_input):
         count = data_input.readInt()
@@ -145,7 +147,8 @@ class Writer(object):
         self._stream = DataOutputStream(FileOutputStream(path))
 
         # sync is 16 random bytes
-        self._sync = md5('%s@%d' % (uuid1().bytes, int(time() * 1000))).digest()
+        toHash = ('%s@%d' % (uuid1().bytes, int(time() * 1000))).encode('utf-8')
+        self._sync = md5(toHash).digest()
 
         self._writeFileHeader()
 
@@ -255,7 +258,7 @@ class Writer(object):
             self._block = None
 
     def _writeFileHeader(self):
-        self._stream.write(VERSION)
+        self._stream.write(VERSION.encode('UTF-8'))
         Text.writeString(self._stream, self.getKeyClassName())
         Text.writeString(self._stream, self.getValueClassName())
 
@@ -263,7 +266,7 @@ class Writer(object):
         self._stream.writeBoolean(self._block_compress)
 
         if self._codec:
-            Text.writeString(self._stream, 'org.apache.hadoopio.io.compress.DefaultCodec')
+            Text.writeString(self._stream, 'org.apache.hadoop.io.compress.DefaultCodec')
 
         self._metadata.write(self._stream)
         self._stream.write(self._sync)

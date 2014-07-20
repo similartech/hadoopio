@@ -70,22 +70,36 @@ def decodeVIntSize(value):
         return -119 - value
     return -111 - value
 
-def writeString(data_output, s):
-    if s: 
-        b = s.encode('utf-8')
+def writeBytes(data_output, b):
+    if b:
         length = len(b);
         data_output.writeInt(length);
         data_output.write(b);
     else: 
         data_output.writeInt(-1);
-      
-def readString(data_input):
+
+def readBytes(data_input):
     
     length = data_input.readInt();
     
     if length == -1:
         return None
     
-    b = data_input.read(length)
+    return data_input.read(length)
+
+def writeString(data_output, s):
+    b = None
     
-    return b.decode('utf-8')
+    if s: 
+        b = s.encode('utf-8')
+        
+    writeBytes(data_output, b);
+      
+def readString(data_input):
+    
+    b = readBytes(data_input)
+    
+    if b:
+        return b.decode('utf-8')
+    
+    return None

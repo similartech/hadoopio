@@ -19,7 +19,7 @@
 from hadoopio.io import *
 
 def hadoopClassFromName(class_path):
-    if class_path.startswith('org.apache.hadoopio.'):
+    if class_path.startswith('org.apache.hadoop.'):
         class_path = class_path[11:]
     return classFromName(class_path)
 
@@ -32,7 +32,7 @@ def hadoopClassName(class_type):
     else:
         module_name = class_type.__module__
         class_name = class_type.__name__
-    if module_name.startswith('hadoopio.io.'):
+    if module_name.startswith('hadoop.io.'):
         module_name, _, file_name = module_name.rpartition('.')
         return 'org.apache.%s.%s' % (module_name, class_name)
     return '%s.%s' % (module_name, class_name)
