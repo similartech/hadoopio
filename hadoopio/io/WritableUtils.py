@@ -16,6 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import chardet
+
 def readVInt(data_input):
     return readVLong(data_input)
 
@@ -87,10 +89,25 @@ def readBytes(data_input):
     
     return data_input.read(length)
 
+def decodeString(s):
+        
+    encoding = chardet.detect(s)['encoding']
+            
+#         if encoding and encoding != "ascii":
+    
+    if not encoding:
+        encoding = 'UTF-8'
+        
+    s = s.decode(encoding, "ignore")
+
+    return s
+
 def writeString(data_output, s):
+    
     b = None
     
     if s: 
+        s = decodeString(s.encode('utf-8'))
         b = s.encode('utf-8')
         
     writeBytes(data_output, b);
