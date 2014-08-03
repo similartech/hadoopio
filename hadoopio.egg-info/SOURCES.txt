@@ -7,6 +7,7 @@ hadoopio.egg-info/dependency_links.txt
 hadoopio.egg-info/requires.txt
 hadoopio.egg-info/top_level.txt
 hadoopio/io/ArrayFile.py
+hadoopio/io/AsyncSequenceFile.py
 hadoopio/io/FloatWritable.py
 hadoopio/io/InputStream.py
 hadoopio/io/IntWritable.py
