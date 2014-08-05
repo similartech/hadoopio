@@ -92,8 +92,6 @@ def readBytes(data_input):
 def decodeString(s):
         
     encoding = chardet.detect(s)['encoding']
-            
-#         if encoding and encoding != "ascii":
     
     if not encoding:
         encoding = 'UTF-8'
